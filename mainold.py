@@ -6,14 +6,6 @@ class RentalManagementSystem:
     def __init__(self, root):
         self.root = root
         self.root.title("Système de gestion des locations")
-        
-        # Configuration de la grille principale
-        self.root.columnconfigure(0, weight=1)
-        self.root.columnconfigure(1, weight=1)
-        self.root.rowconfigure(0, weight=1)
-        self.root.rowconfigure(1, weight=1)
-        self.root.rowconfigure(2, weight=1)
-        
         self.create_widgets()
         self.update_stock()
         self.update_current_rentals()
@@ -23,9 +15,6 @@ class RentalManagementSystem:
         # Frame pour les équipements
         stock_frame = ttk.LabelFrame(self.root, text="Équipements en stock")
         stock_frame.grid(row=0, column=0, padx=10, pady=10, sticky=tk.NSEW)
-        stock_frame.columnconfigure(0, weight=1)
-        stock_frame.rowconfigure(0, weight=1)
-        stock_frame.rowconfigure(1, weight=1)
 
         self.stock_tree = ttk.Treeview(stock_frame, columns=("ID", "Nom", "Quantité"))
         self.stock_tree.heading("#0", text="", anchor=tk.CENTER)
@@ -49,11 +38,11 @@ class RentalManagementSystem:
 
         ttk.Label(add_equipment_frame, text="Nom:").grid(row=0, column=0, padx=5, pady=5)
         self.equipment_name_entry = ttk.Entry(add_equipment_frame)
-        self.equipment_name_entry.grid(row=0, column=1, padx=5, pady=5, sticky=tk.EW)
+        self.equipment_name_entry.grid(row=0, column=1, padx=5, pady=5)
 
         ttk.Label(add_equipment_frame, text="Quantité:").grid(row=1, column=0, padx=5, pady=5)
         self.stock_entry = ttk.Entry(add_equipment_frame)
-        self.stock_entry.grid(row=1, column=1, padx=5, pady=5, sticky=tk.EW)
+        self.stock_entry.grid(row=1, column=1, padx=5, pady=5)
 
         ttk.Button(add_equipment_frame, text="Ajouter", command=self.add_equipment).grid(row=2, column=0, padx=5, pady=5)
         ttk.Button(add_equipment_frame, text="Modifier", command=self.modify_equipment).grid(row=2, column=1, padx=5, pady=5)
@@ -62,8 +51,6 @@ class RentalManagementSystem:
         # Frame pour les locations actuelles
         current_rentals_frame = ttk.LabelFrame(self.root, text="Locations en cours")
         current_rentals_frame.grid(row=0, column=1, padx=10, pady=10, sticky=tk.NSEW)
-        current_rentals_frame.columnconfigure(0, weight=1)
-        current_rentals_frame.rowconfigure(0, weight=1)
 
         self.current_rentals_tree = ttk.Treeview(current_rentals_frame, columns=("ID", "Équipement", "Locataire", "Prise", "Retour", "Retourné"))
         self.current_rentals_tree.heading("#0", text="", anchor=tk.CENTER)
@@ -96,39 +83,36 @@ class RentalManagementSystem:
         # Frame pour l'ajout/modification des locations
         rental_frame = ttk.LabelFrame(self.root, text="Ajouter/Modifier une location")
         rental_frame.grid(row=1, column=0, padx=10, pady=10, sticky=tk.NSEW)
-        rental_frame.columnconfigure(1, weight=1)
 
         ttk.Label(rental_frame, text="Équipement:").grid(row=0, column=0, padx=5, pady=5)
         self.rental_equipment_name_entry = ttk.Entry(rental_frame)
-        self.rental_equipment_name_entry.grid(row=0, column=1, padx=5, pady=5, sticky=tk.EW)
+        self.rental_equipment_name_entry.grid(row=0, column=1, padx=5, pady=5)
 
         ttk.Label(rental_frame, text="Locataire:").grid(row=1, column=0, padx=5, pady=5)
         self.renter_name_entry = ttk.Entry(rental_frame)
-        self.renter_name_entry.grid(row=1, column=1, padx=5, pady=5, sticky=tk.EW)
+        self.renter_name_entry.grid(row=1, column=1, padx=5, pady=5)
 
         ttk.Label(rental_frame, text="Date de prise:").grid(row=2, column=0, padx=5, pady=5)
         self.take_date_entry = ttk.Entry(rental_frame)
-        self.take_date_entry.grid(row=2, column=1, padx=5, pady=5, sticky=tk.EW)
+        self.take_date_entry.grid(row=2, column=1, padx=5, pady=5)
 
         ttk.Label(rental_frame, text="Heure de prise:").grid(row=3, column=0, padx=5, pady=5)
         self.take_time_combobox = ttk.Combobox(rental_frame, values=self.get_time_slots())
-        self.take_time_combobox.grid(row=3, column=1, padx=5, pady=5, sticky=tk.EW)
+        self.take_time_combobox.grid(row=3, column=1, padx=5, pady=5)
 
         ttk.Label(rental_frame, text="Date de retour:").grid(row=4, column=0, padx=5, pady=5)
         self.return_date_entry = ttk.Entry(rental_frame)
-        self.return_date_entry.grid(row=4, column=1, padx=5, pady=5, sticky=tk.EW)
+        self.return_date_entry.grid(row=4, column=1, padx=5, pady=5)
 
         ttk.Label(rental_frame, text="Heure de retour:").grid(row=5, column=0, padx=5, pady=5)
         self.return_time_combobox = ttk.Combobox(rental_frame, values=self.get_time_slots())
-        self.return_time_combobox.grid(row=5, column=1, padx=5, pady=5, sticky=tk.EW)
+        self.return_time_combobox.grid(row=5, column=1, padx=5, pady=5)
 
-        ttk.Button(rental_frame, text="Ajouter", command=self.add_rental).grid(row=6, column=0, columnspan=2, padx=5, pady=5)
+        ttk.Button(rental_frame, text="Ajouter", command=self.add_rental).grid(row=6, column=0, padx=5, pady=5)
 
         # Frame pour l'historique des locations
         history_frame = ttk.LabelFrame(self.root, text="Historique des locations")
-        history_frame.grid(row=2, column=0, columnspan=2, padx=10, pady=10, sticky=tk.NSEW)
-        history_frame.columnconfigure(0, weight=1)
-        history_frame.rowconfigure(0, weight=1)
+        history_frame.grid(row=1, column=1, padx=10, pady=10, sticky=tk.NSEW)
 
         self.history_tree = ttk.Treeview(history_frame, columns=("ID", "Équipement", "Locataire", "Prise", "Retour", "Retourné"))
         self.history_tree.heading("#0", text="", anchor=tk.CENTER)
@@ -152,7 +136,7 @@ class RentalManagementSystem:
         self.history_tree.configure(yscrollcommand=history_scrollbar.set)
 
         # Bouton pour mettre à jour l'historique des locations
-        ttk.Button(history_frame, text="Mettre à jour l'historique", command=self.update_history).grid(row=1, column=0, padx=5, pady=5, sticky=tk.EW)
+        ttk.Button(history_frame, text="Mettre à jour l'historique", command=self.update_history).grid(row=1, column=0, padx=5, pady=5)
 
     def get_time_slots(self):
         time_slots = [f"{hour:02d}:00" for hour in range(24)]
